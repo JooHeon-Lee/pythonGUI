@@ -1,4 +1,5 @@
 # 기본 프레임
+import tkinter.ttk as ttk
 from tkinter import *
 
 root = Tk()
@@ -34,6 +35,25 @@ txt_dest_path.pack(side="left", fill="x", expand=True, ipady=4) # 높이변경
 
 btn_dest_path = Button(path_frame, text="찾아보기", width=10)
 btn_dest_path.pack(side="right")
+
+# 옵션 프레임
+frame_option = LabelFrame(root, text="옵션")
+frame_option.pack()
+
+# 1.가로 넓이 옵션
+
+lbl_width = Label(frame_option, text="가로넓이",width=3)
+lbl_width.pack(side="left")
+
+# 가로 넓이 콤보
+opt_width = ["원본유지", "1024", "800", "640"]
+cmb_width = ttk.Combobox(frame_option, state="readonly",  values=opt_width, width=opt_width)
+cmb_width.current(0)
+cmb_width.pack(side="left")
+
+# 간격 옵션
+
+# 파일 포맷 옵션
 
 
 root.resizable(False,False) # x(너비), y(높이) 변경 불가
