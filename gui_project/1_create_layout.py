@@ -1,4 +1,5 @@
 # 기본 프레임
+import builtins
 import tkinter.ttk as ttk
 from tkinter import *
 
@@ -7,7 +8,7 @@ root.title("JooHeon Lee GUI") # 제목 설정
 
 # 파일 프레임 (파일 축, 선택 삭제)
 file_frame = Frame(root)
-file_frame.pack()
+file_frame.pack(fill="x")
 
 btn_add_file = Button(file_frame, padx=5, pady=5, width=12, text="파일추가")
 btn_add_file.pack(side="left")
@@ -28,7 +29,7 @@ scrollbar.config(command=list_file.yview)
 
 # 저장 경로 프레임
 path_frame = LabelFrame(root, text="저장경로")
-path_frame.pack()
+path_frame.pack(fill="x")
 
 txt_dest_path = Entry(path_frame)
 txt_dest_path.pack(side="left", fill="x", expand=True, ipady=4) # 높이변경
@@ -42,18 +43,56 @@ frame_option.pack()
 
 # 1.가로 넓이 옵션
 
-lbl_width = Label(frame_option, text="가로넓이",width=3)
+lbl_width = Label(frame_option, text="가로넓이",width=8)
 lbl_width.pack(side="left")
 
 # 가로 넓이 콤보
 opt_width = ["원본유지", "1024", "800", "640"]
-cmb_width = ttk.Combobox(frame_option, state="readonly",  values=opt_width, width=opt_width)
+cmb_width = ttk.Combobox(frame_option, state="readonly",  values=opt_width, width=10)
 cmb_width.current(0)
 cmb_width.pack(side="left")
 
 # 간격 옵션
+# 간격 옵션 레이블
+lbl_space = Label(frame_option, text="간격",width=8)
+lbl_space.pack(side="left")
+
+# 간격 옵션 콤보
+opt_space = ["없음", "좁게", "보통", "넓게"]
+cmb_space = ttk.Combobox(frame_option, state="readonly",  values=opt_space, width=10)
+cmb_space.current(0)
+cmb_space.pack(side="left")
 
 # 파일 포맷 옵션
+# 파일 포맷 옵션 레이블
+lbl_format = Label(frame_option, text="포맷",width=8)
+lbl_format.pack(side="left")
+
+# 파일 포맷 옵션 콤보
+opt_format = ["PNG", "JPG", "BMP"]
+cmb_format = ttk.Combobox(frame_option, state="readonly",  values=opt_format, width=10)
+cmb_format.current(0)
+cmb_format.pack(side="left")
+
+# 진행 상황 Progress Bar
+frame_progress = LabelFrame(root, text="진행상황")
+frame_progress.pack(fill="x")
+
+p_var = DoubleVar()
+progress_bar = ttk.Progressbar(frame_progress, maximum=100, variable=p_var)
+progress_bar.pack(fill="x")
+
+# 실행 프레임
+frame_run = Frame(root)
+frame_run.pack(fill="x")
+
+btn_close = Button(frame_run, padx=5, pady=5, text="닫기", width=12, command=root.quit)
+btn_close.pack(side="right")
+
+btn_start = Button(frame_run, padx=5, pady=5, text="시작", width=12)
+btn_start.pack(side="right")
+
+
 
 
 root.resizable(False,False) # x(너비), y(높이) 변경 불가
