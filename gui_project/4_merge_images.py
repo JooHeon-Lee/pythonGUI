@@ -41,8 +41,11 @@ def merge_image():
     # print(list_file.get(0,END)) # 모든 파일 목록 가져옴
     images = [Image.open(x) for x in list_file.get(0,END)]
     # images객체에는 size 가 있음 size[0] : width size[1] : height
-    widths = [x.size[0] for x in images]
-    heights = [x.size[1] for x in images]
+    # widths = [x.size[0] for x in images]
+    # heights = [x.size[1] for x in images]
+
+    # [(10,10), (20,20), (30,30)]
+    widths, heights = zip(*(x.size for x in images))
 
     max_width, total_height = max(widths), sum(heights) # 최대 넓이와 높이를 다 더한값을 정의
 
@@ -50,9 +53,17 @@ def merge_image():
     result_img = Image.new("RGB", (max_width, total_height), (255,255,255)) # 배경 흰색
     y_offset = 0 # y 위치 정보 이미지 높이만큼 체크
     
-    for img in images:
+    # for img in images:
+    #     result_img.paste(img, (0,y_offset))
+    #     y_offset += img.size[1] # 높이만큼을 더해줌
+    
+    for idx, img in enumerate(images):
         result_img.paste(img, (0,y_offset))
-        y_offset += img.size[1] # 높이만큼을 더해줌
+        y_offset += img.size[1]
+
+        progress = (idx + 1) / len(images) * 100 # 실제 percent정보 계산 
+        p_var.set(progress)
+        progress_bar.update()
 
     dest_path = os.path.join(txt_dest_path.get(), "jooheon_photo.jpg")
     result_img.save(dest_path)
